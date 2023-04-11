@@ -41,12 +41,25 @@ public class PlayfairEncryption{
         plaintext = plaintext.toUpperCase().replaceAll("[^A-Z]", ""); // Convert to uppercase and remove non-alphabetic characters
         plaintext = plaintext.replace("J", "I"); // Replace J with I
         StringBuilder sb = new StringBuilder(plaintext);
+                int m = 0;
+        while (m < sb.length() - 1) {
+            char c1 = sb.charAt(m);
+            char c2 = sb.charAt(m + 1);
+
+            if (c1 == c2) {
+                sb.insert(m + 1, 'X');
+                m += 2;
+                continue;
+            }
+
+            m++;
+        }
         System.out.println(sb);
         StringBuilder ciphertext = new StringBuilder();
         for (int i = 0; i < sb.length(); i += 2) {
 
             char c1 = sb.charAt(i);
-            char c2 = sb.charAt(i + 1);
+            char c2 = (i + 1 < sb.length()) ? sb.charAt(i + 1) : 'X';
 
             int row1 = -1, col1 = -1, row2 = -1, col2 = -1;
             for (int row = 0; row < 5; row++) {
