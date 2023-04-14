@@ -43,11 +43,36 @@ public class PlayfairDecryption {
 
     }
 
+    //Decrypt the ciphertext using the key matrix
+
+    public String decrypt(String ciphertext) {
+        ciphertext = ciphertext.toUpperCase().replaceAll("[^A-Z]", ""); // Convert to uppercase and remove non-alphabetic characters
+        StringBuilder sb = new StringBuilder(ciphertext);
+
+        StringBuilder plaintext = new StringBuilder();
+        for (int i = 0; i < sb.length(); i += 2) {
+
+            char c1 = sb.charAt(i);
+            char c2 = sb.charAt(i + 1);
+
+            int row1 = -1, col1 = -1, row2 = -1, col2 = -1;
+            for (int row = 0; row < 5; row++) {
+                for (int col = 0; col < 5; col++) {
+                    if (keyMatrix[row][col] == c1) {
+                        row1 = row;
+                        col1 = col;
+                    } else if (keyMatrix[row][col] == c2) {
+                        row2 = row;
+                        col2 = col;
+                    }
+                }
+            }
 
 
 
 
-    public static void main(String[] args) {
+
+            public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the key: ");
         String key = scanner.nextLine();
